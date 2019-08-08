@@ -3,7 +3,7 @@
         <div class="register-header">
             <el-row type="flex" class="row-bg" justify="center">
                 <el-col :span="16" class="header-left">
-                    <img src="@/assets/logo.jpg" alt style="width:100px; height:100%" />
+                    <img src="@/assets/logo.jpg" alt style="width:178.75px; height:100%" />
 
                     <span style="font-size:2rem">轮胎匠</span>
                 </el-col>
