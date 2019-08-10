@@ -3,7 +3,7 @@
     <div class="register-header">
       <el-row type="flex" class="row-bg" justify="center">
         <el-col :span="16" class="header-left">
-          <img src="@/assets/logo.jpg" alt style="width:178.75px; height:100%"/>
+          <img src="@/assets/logo.jpg" alt style="width:178.75px; height:100%" />
           <span style="font-size:2rem">补胎匠</span>
         </el-col>
         <el-col :span="6" class="header-right">
@@ -18,195 +18,218 @@
         </el-col>
       </el-row>
     </div>
-    <el-form ref="registerForm" label-width="106px" :model="registerForm" :rules="registerRules" class="register-form" auto-complete="on" label-position="right">
-        
-        <el-form-item prop="name" label="商户名称">
-          <el-input ref="name" v-model="registerForm.name" name="name" type="text" auto-complete="on"></el-input>
-        </el-form-item>
+    <el-form
+      ref="registerForm"
+      label-width="106px"
+      :model="registerForm"
+      :rules="registerRules"
+      class="register-form"
+      auto-complete="on"
+      label-position="right"
+      name="registerForm"
+    >
+      <el-form-item prop="name" label="商户名称">
+        <el-input ref="name" v-model="registerForm.name" name="name" type="text"></el-input>
+      </el-form-item>
 
-        <el-form-item prop="password" label="密码">
-         
-          <el-input :key="passwordType" ref="password" v-model="registerForm.password" :type="passwordType" placeholder="Password" name="password" auto-complete="on"></el-input>
-          <span class="show-pwd" @click="showPwd">
-            <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"></svg-icon>
-          </span>
-        </el-form-item>
-        <el-form-item prop="checkPass" label="确认密码">
-         
-          <el-input :key="checkPassType" ref="checkPass" v-model="registerForm.checkPass" :type="checkPassType" name="checkPass" auto-complete="on"></el-input>
-          <span class="show-pwd" @click="showCheckPassPwd">
-            <svg-icon :icon-class="checkPassType === 'password' ? 'eye' : 'eye-open'"></svg-icon>
-          </span>
-        </el-form-item>
+      <el-form-item prop="password" label="密码">
+        <el-input
+          :key="passwordType"
+          ref="password"
+          v-model="registerForm.password"
+          :type="passwordType"
+          placeholder="Password"
+          name="password"
+        ></el-input>
+        <span class="show-pwd" @click="showPwd">
+          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"></svg-icon>
+        </span>
+      </el-form-item>
+      <el-form-item prop="checkPass" label="确认密码">
+        <el-input
+          :key="checkPassType"
+          ref="checkPass"
+          v-model="registerForm.checkPass"
+          :type="checkPassType"
+          name="checkPass"
+        ></el-input>
+        <span class="show-pwd" @click="showCheckPassPwd">
+          <svg-icon :icon-class="checkPassType === 'password' ? 'eye' : 'eye-open'"></svg-icon>
+        </span>
+      </el-form-item>
 
-        <el-form-item prop="linkName" label="联系人名称">
-          <el-input ref="linkName" v-model="registerForm.linkName" name="linkName" type="text" auto-complete="on"></el-input>
-        </el-form-item>
-        
-        <el-form-item prop="telephone" label="手机号码">
-          <el-input ref="telephone" v-model="registerForm.telephone" placeholder="请输入常用手机号" name="telephone" type="text" auto-complete="on"></el-input>
-        </el-form-item>
+      <el-form-item prop="linkName" label="联系人名称">
+        <el-input
+          ref="linkName"
+          v-model="registerForm.linkName"
+          name="linkName"
+          type="text"
+          auto-complete="on"
+        ></el-input>
+      </el-form-item>
 
-        <el-form-item prop="verification" label="图形验证码" class="verify-input">
-          
-          <el-input ref="verification" v-model="registerForm.verification" placeholder="图形验证码" name="verification" type="text" auto-complete="on">
-            <template slot="append">
-              <img :src="picVerifyUri" alt style="height:34px"/>
-            </template>
-          </el-input>
-          <el-button @click.prevent="refreshPicVerify()">
-            <i class="el-icon-refresh"></i>刷新图片
-          </el-button>
-        </el-form-item>
-        
-        <el-form-item prop="sysCode" label="短信验证码">
-          
-          <el-input ref="sysCode" v-model="registerForm.sysCode" placeholder="请输入六位短信验证码" name="sysCode" type="text" auto-complete="on">
-            <template slot="append">
-              <el-button type="primary" @click="getSysCode" :disabled="countDown > 1">
-                <span v-if="countDown < 1">获取短信验证码</span>
-                <span v-else>{{countDown}}秒后重试</span>
-              </el-button>
-            </template>
-          </el-input>
-        </el-form-item>
+      <el-form-item prop="telephone" label="手机号码">
+        <el-input
+          ref="telephone"
+          v-model="registerForm.telephone"
+          placeholder="请输入常用手机号"
+          name="telephone"
+          type="text"
+          auto-complete="on"
+        ></el-input>
+      </el-form-item>
 
-        <el-form-item prop="licenseCode" label="营业执照号码">
-          <el-input ref="licenseCode" v-model="registerForm.licenseCode" name="licenseCode" type="text" auto-complete="on"></el-input>
-        </el-form-item>
+      <el-form-item prop="verification" label="图形验证码" class="verify-input">
+        <el-input
+          ref="verification"
+          v-model="registerForm.verification"
+          placeholder="图形验证码"
+          name="verification"
+          type="text"
+          auto-complete="on"
+        >
+          <template slot="append">
+            <img :src="picVerifyUri" alt style="height:34px" @load="picVerifyLoadHandle" />
+          </template>
+        </el-input>
+        <el-button @click.prevent="refreshPicVerify()">
+          <i :class="picVerifyUriLoading?'el-icon-loading':'el-icon-refresh'"></i>刷新图片
+        </el-button>
+      </el-form-item>
 
-        <el-form-item prop="licenseUrl" label="营业执照地址">
-          <el-input ref="licenseUrl" v-model="registerForm.licenseUrl" name="licenseUrl" type="text" auto-complete="on"></el-input>
-        </el-form-item>
+      <el-form-item prop="smsCode" label="短信验证码">
+        <el-input
+          ref="smsCode"
+          v-model="registerForm.smsCode"
+          placeholder="请输入六位短信验证码"
+          name="smsCode"
+          type="text"
+          auto-complete="on"
+        >
+          <template slot="append">
+            <el-button
+              type="primary"
+              @click="getSysCode"
+              :disabled="countDown > 1"
+              style="width:140px"
+            >
+              <span v-if="countDown < 1">获取短信验证码</span>
+              <span v-else>{{countDown}}秒后重试</span>
+            </el-button>
+          </template>
+        </el-input>
+      </el-form-item>
 
-        <el-form-item prop="corporate" label="法人名字">
-          <el-input ref="corporate" v-model="registerForm.corporate" name="corporate" type="text" auto-complete="on"></el-input>
-        </el-form-item>
+      <el-form-item prop="licenseCode" label="营业执照号码">
+        <el-input
+          ref="licenseCode"
+          v-model="registerForm.licenseCode"
+          name="licenseCode"
+          type="text"
+          auto-complete="on"
+        ></el-input>
+      </el-form-item>
+      <el-form-item prop="corporate" label="法人名字">
+        <el-input
+          ref="corporate"
+          v-model="registerForm.corporate"
+          name="corporate"
+          type="text"
+          auto-complete="on"
+        ></el-input>
+      </el-form-item>
 
-        <el-form-item prop="corporateIdCard" label="法人证件号">
-          <el-input ref="corporateIdCard" v-model="registerForm.corporateIdCard" name="corporateIdCard" type="text" auto-complete="on"></el-input>
-        </el-form-item>
+      <el-form-item prop="corporateIdCard" label="法人证件号">
+        <el-input
+          ref="corporateIdCard"
+          v-model="registerForm.corporateIdCard"
+          name="corporateIdCard"
+          type="text"
+          auto-complete="on"
+        ></el-input>
+      </el-form-item>
 
-        <el-form-item prop="address" label="商家地址">
-          <el-input ref="address" v-model="registerForm.address" name="address" type="text" auto-complete="on"></el-input>
-        </el-form-item>
+      <el-form-item prop="address" label="商家地址">
+        <el-input
+          ref="address"
+          v-model="registerForm.address"
+          name="address"
+          type="text"
+          auto-complete="on"
+        ></el-input>
+      </el-form-item>
+      <el-form-item prop="licenseUrl" label="营业执照上传">
+        <el-input
+          ref="licenseUrl"
+          v-model="registerForm.licenseUrl"
+          name="licenseUrl"
+          type="text"
+          style="display:none"
+        ></el-input>
+        <el-upload
+          :action="updateImgUri"
+          list-type="picture-card"
+          :on-preview="handlePictureCardPreview"
+          :on-success="handlePictureCardSuccess"
+          :on-remove="handleRemove"
+          :limit="1"
+        >
+          <i class="el-icon-plus"></i>
+        </el-upload>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleRegister">下一步</el-button>
+        <el-dialog :visible.sync="dialogVisible">
+          <img width="100%" :src="previewUrl" alt />
+        </el-dialog>
+      </el-form-item>
+      <el-button
+        :loading="loading"
+        type="primary"
+        class="register-btn"
+        @click.native.prevent="handleRegister"
+      >注册</el-button>
     </el-form>
-
- 
   </div>
 </template>
 
 <script>
-import { validName, validTelephone } from "@/utils/validate";
+import {
+  validateName,
+  validateLinkName,
+  validateTelephone,
+  validateVerfication,
+  validateSysCode,
+  validateLicenseCode,
+  validateLicenseUrl,
+  validateCorporate,
+  validateCorporateIdCard,
+  validateAddress
+} from "@/utils/validate";
 import { mapGetters } from "vuex";
-import { getSysCode } from "@/api/user";
+import { getSysCode, register } from "@/api/user";
 import { clearInterval } from "timers";
 
 export default {
   name: "Register",
   data() {
-    const validateName = (rule, value, callback) => {
-      if (!validName(value)) {
-        callback(new Error("Please enter the correct user name"));
+    const validatePassword = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入密码"));
       } else {
+        if (this.registerForm.checkPass !== "") {
+          this.$refs.registerForm.validateField("checkPass");
+        }
         callback();
       }
-    };
-    const validatePassword = (rule, value, callback) => {
-      if (value === '') {
-          callback(new Error('请输入密码'));
-        } else {
-          if (this.registerForm.checkPass !== '') {
-            this.$refs.registerForm.validateField('checkPass');
-          }
-          callback();
-        }
     };
     const validateCheckPass = (rule, value, callback) => {
-       if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.registerForm.password) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          callback();
-        }
-    };
-    const validateLinkName = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error("不能为空"));
-      } else {
-        callback();
-      }
-    };
-    const validateTelephone = (rule, value, callback) => {
-      if (!validTelephone(value)) {
-        callback(new Error("请正确输入11位手机号码"));
-      } else {
-        callback();
-      }
-    };
-    const validateVerfication = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("请输入图形验证码"));
-      } else {
-        let regExp = new RegExp(/^\w{5}$/);
-        if (!regExp.test(value)) {
-          callback(new Error("请输入5位图形验证码"));
-        } else {
-          callback();
-        }
-      }
-    };
-    const validateSysCode = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入短信验证码"));
-      } else {
-        let regExp = new RegExp(/^\d{6}$/);
-        if (!regExp.test(value)) {
-          callback(new Error("请输入6位短信验证码"));
-        } else {
-          callback();
-        }
-      }
-    };
-    const validateLicenseCode = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error("不能为空"));
+        callback(new Error("请再次输入密码"));
+      } else if (value !== this.registerForm.password) {
+        callback(new Error("两次输入密码不一致!"));
       } else {
         callback();
       }
     };
-    const validateLicenseUrl = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error("不能为空"));
-      } else {
-        callback();
-      }
-    };
-    const validateCorporate = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error("不能为空"));
-      } else {
-        callback();
-      }
-    };
-    const validateCorporateIdCard = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error("不能为空"));
-      } else {
-        callback();
-      }
-    };
-    const validateAddress = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error("不能为空"));
-      } else {
-        callback();
-      }
-    };
-
     return {
       registerForm: {
         name: "",
@@ -215,7 +238,7 @@ export default {
         linkName: "",
         telephone: "",
         verification: "",
-        sysCode: "",
+        smsCode: "",
         licenseCode: "",
         licenseUrl: "",
         corporate: "",
@@ -267,7 +290,7 @@ export default {
             validator: validateVerfication
           }
         ],
-        sysCode: [
+        smsCode: [
           {
             required: true,
             trigger: "blur",
@@ -315,13 +338,19 @@ export default {
       checkPassType: "password",
       redirect: undefined,
       countDown: 0,
-      labelPosition: "right",
-      random: Math.ceil(Math.random() * 10000)
+      picVerifyUriLoading: false,
+      random: Math.ceil(Math.random() * 10000),
+      countDownTimer: 0,
+      previewUrl: "",
+      dialogVisible: false
     };
   },
   computed: {
     picVerifyUri() {
       return `${process.env.VUE_APP_BASE_API}/open/verificationCode/${this.random}`;
+    },
+    updateImgUri() {
+      return `${process.env.VUE_APP_BASE_API}/open/file/upload`;
     }
   },
   watch: {
@@ -336,6 +365,18 @@ export default {
     this.refreshPicVerify();
   },
   methods: {
+    handleRemove(file, fileList) {
+      this.registerForm.licenseUrl = "";
+      this.$refs.licenseUrl.blur();
+    },
+    handlePictureCardSuccess(file) {
+      this.registerForm.licenseUrl = `${process.env.VUE_APP_BASE_API}${file.data.filePath}`;
+      this.$refs.licenseUrl.blur();
+    },
+    handlePictureCardPreview(file) {
+      this.previewUrl = file.url;
+      this.dialogVisible = true;
+    },
     showPwd() {
       if (this.passwordType === "password") {
         this.passwordType = "";
@@ -357,19 +398,16 @@ export default {
       });
     },
 
-    handleRegister() {
-      this.$refs.registerForm.validate(valid => {
-        if (valid) {
-        }
-      });
-    },
-
     goLogin() {
       this.$router.push({ path: "/login" });
     },
 
     refreshPicVerify() {
       this.random = Math.ceil(Math.random() * 10000);
+      this.picVerifyUriLoading = true;
+    },
+    picVerifyLoadHandle() {
+      this.picVerifyUriLoading = false;
     },
     getSysCode() {
       this.$refs.registerForm.validate((result, valid) => {
@@ -379,17 +417,52 @@ export default {
         ) {
           getSysCode({
             phoneNum: this.registerForm.telephone,
-            verificationCode: this.registerForm.verification
-          }).then(resp => {
-            this.countDown = 60;
-            let countDownTimer = setInterval(() => {
-              if (this.countDown) {
-                this.countDown--;
-              } else {
-                clearInterval(countDownTimer);
-              }
-            }, 1000);
-          });
+            verificationCode: this.registerForm.verification.toUpperCase()
+          })
+            .then(resp => {
+              this.countDown = 60;
+              this.countDownTimer = window.setInterval(() => {
+                if (this.countDown > 0) {
+                  this.countDown--;
+                } else {
+                  window.clearInterval(this.countDownTimer);
+                }
+              }, 1000);
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        }
+      });
+    },
+    handleRegister() {
+      this.$refs.registerForm.validate(valid => {
+        if (valid) {
+          this.loading = true;
+          register({
+            address: this.registerForm.address,
+            corporate: this.registerForm.corporate,
+            corporateIdCard: this.registerForm.corporateIdCard,
+            licenseCode: this.registerForm.licenseCode,
+            licenseUrl: this.registerForm.licenseUrl,
+            linkman: this.registerForm.linkName,
+            name: this.registerForm.name,
+            password: this.registerForm.password,
+            phoneNum: this.registerForm.telephone,
+            smsCode: this.registerForm.smsCode
+          })
+            .then(resp => {
+              this.$alert("成功注册去登录", "提示", {
+                confirmButtonText: "确定",
+                callback: action => {
+                  this.goLogin();
+                }
+              });
+            })
+            .catch(error => {})
+            .finally(() => {
+              this.loading = false;
+            });
         }
       });
     }
@@ -401,9 +474,9 @@ export default {
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-$bg: #ffffff;
-$light_gray: #409eff;
-$cursor: #409eff;
+$bg: #283443;
+$light_gray: #fff;
+$cursor: #fff;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
   .register-container .el-input input {
@@ -418,21 +491,21 @@ $cursor: #409eff;
     // height: 47px;
     // width: 85%;
 
-    // input {
-    //   background: transparent;
-    //   border: 0px;
-    //   -webkit-appearance: none;
-    //   border-radius: 0px;
-    //   padding: 12px 5px 12px 15px;
-    //   color: $light_gray;
-    //   height: 47px;
-    //   caret-color: $cursor;
+    input {
+      //   background: transparent;
+      //   border: 0px;
+      //   -webkit-appearance: none;
+      //   border-radius: 0px;
+      //   padding: 12px 5px 12px 15px;
+      color: $bg;
+      //   height: 47px;
+      //   caret-color: $cursor;
 
-    //   &:-webkit-autofill {
-    //     box-shadow: 0 0 0px 1000px $bg inset !important;
-    //     -webkit-text-fill-color: $cursor !important;
-    //   }
-    // }
+      &:-webkit-autofill {
+        box-shadow: 0 0 0px 1000px $cursor inset !important;
+        -webkit-text-fill-color: $bg !important;
+      }
+    }
   }
 
   .el-form-item {
@@ -445,9 +518,10 @@ $cursor: #409eff;
 </style>
 
 <style lang="scss" scoped>
-$bg: #ffffff;
+$bg: #2d3a4b;
 $dark_gray: #889aa4;
-$light_gray: #409eff;
+$light_gray: #eee;
+
 .register-container {
   min-height: 100%;
   width: 100%;
@@ -457,9 +531,12 @@ $light_gray: #409eff;
   .el-link {
     font-size: 1rem;
   }
+  /deep/ .el-form-item__label {
+    color: $light_gray;
+  }
   .register-header {
     background-color: #f6f6f6;
-    height: 110px;
+    height: 80px;
     box-shadow: 0 0 0.5rem $dark_gray;
     .row-bg {
       height: 100%;
@@ -529,6 +606,11 @@ $light_gray: #409eff;
     color: $dark_gray;
     cursor: pointer;
     user-select: none;
+  }
+  .register-btn {
+    width: 344px;
+    margin-bottom: 30px;
+    margin-left: 106px;
   }
 }
 </style>

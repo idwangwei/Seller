@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Vue Admin Template',
+  title: '补胎匠商家系统',
 
   /**
    * @type {boolean} true | false

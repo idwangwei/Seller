@@ -26,7 +26,7 @@ module.exports = {
     ],
     'vue/html-indent': [
       'error',
-      4,
+      2,
       {
         attribute: 1,
         baseIndent: 1,
@@ -85,13 +85,13 @@ module.exports = {
     ],
     'handle-callback-err': [2, '^(err|error)$'],
     indent: [
-      2,
+      0,
       4,
       {
         SwitchCase: 1
       }
     ],
-    'jsx-quotes': [2, 'prefer-single'],
+    'jsx-quotes': [0, 'prefer-single'],
     'key-spacing': [
       2,
       {
@@ -226,7 +226,7 @@ module.exports = {
     ],
     'padded-blocks': [2, 'never'],
     quotes: [
-      2,
+      0,
       'single',
       {
         avoidEscape: true,

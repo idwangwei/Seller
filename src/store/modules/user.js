@@ -18,20 +18,21 @@ const mutations = {
     },
     SET_AVATAR: (state, avatar) => {
         state.avatar = avatar;
-    },
+    }
 };
 
 const actions = {
     // user login
     login({ commit }, userInfo) {
-        const { username, password } = userInfo;
+        const { username, password, role } = userInfo;
         return new Promise((resolve, reject) => {
-            login({ username: username.trim(), password: password }).then(response => {
+            login({ phone: username.trim(), password: password, role }).then(response => {
                 const { data } = response;
-                commit('SET_TOKEN', data.token);
-                setToken(data.token);
+                commit('SET_TOKEN', data.accessToken);
+                setToken(data.accessToken);
                 resolve();
             }).catch(error => {
+                debugger;
                 reject(error);
             });
         });
@@ -42,7 +43,7 @@ const actions = {
         return new Promise((resolve, reject) => {
             getInfo(state.token).then(response => {
                 const { data } = response;
-
+                debugger;
                 if (!data) {
                     reject('Verification failed, please Login again.');
                 }
@@ -61,14 +62,14 @@ const actions = {
     // user logout
     logout({ commit, state }) {
         return new Promise((resolve, reject) => {
-            logout(state.token).then(() => {
+            // logout().then(() => {
                 commit('SET_TOKEN', '');
                 removeToken();
                 resetRouter();
                 resolve();
-            }).catch(error => {
-                reject(error);
-            });
+            // }).catch(error => {
+            //     reject(error);
+            // });
         });
     },
 
@@ -79,7 +80,7 @@ const actions = {
             removeToken();
             resolve();
         });
-    },
+    }
 };
 
 export default {

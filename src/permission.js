@@ -13,7 +13,7 @@ const whiteList = ['/login', '/register']; // no redirect whitelist
 router.beforeEach(async(to, from, next) => {
     // start progress bar
     NProgress.start();
-
+    debugger;
     // set page title
     document.title = getPageTitle(to.meta.title);
 
@@ -23,8 +23,9 @@ router.beforeEach(async(to, from, next) => {
     if (hasToken) {
         if (to.path === '/login') {
             // if is logged in, redirect to the home page
-            next({ path: '/' });
+            // next({ path: '/' });
             NProgress.done();
+            next();
         } else {
             const hasGetUserInfo = store.getters.name;
             if (hasGetUserInfo) {

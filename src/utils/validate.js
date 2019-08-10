@@ -1,24 +1,98 @@
-/**
- * Created by PanJiaChen on 16/11/18.
- */
+const isExternal = (path) => {
+  return /^(https?:|mailto:|tel:)/.test(path);
+}
+const validateName = (rule, value, callback) => {
+  if (!value.trim().length) {
+    callback(new Error("请输入商家名称"));
+  } else {
+    callback();
+  }
+};
 
-/**
- * @param {string} path
- * @returns {Boolean}
- */
-export function isExternal(path) {
-    return /^(https?:|mailto:|tel:)/.test(path);
-}
-
-/**
- * @param {string} str
- * @returns {Boolean}
- */
-export function validName(str) {
-    const valid_map = ['admin', 'editor'];
-    return valid_map.indexOf(str.trim()) >= 0;
-}
-export function validTelephone(str) {
-    const phoneRe = new RegExp(/^1\d{10}$/);
-    return phoneRe.test(str);
-}
+const validateLinkName = (rule, value, callback) => {
+  if (!value) {
+    callback(new Error("不能为空"));
+  } else {
+    callback();
+  }
+};
+const validateTelephone = (rule, value, callback) => {
+  const phoneRe = new RegExp(/^1\d{10}$/);
+  if (!phoneRe.test(value)) {
+    callback(new Error("请正确输入11位手机号码"));
+  } else {
+    callback();
+  }
+};
+const validateVerfication = (rule, value, callback) => {
+  if (value === "") {
+    callback(new Error("请输入图形验证码"));
+  } else {
+    let regExp = new RegExp(/^\w{5}$/);
+    if (!regExp.test(value)) {
+      callback(new Error("请输入5位图形验证码"));
+    } else {
+      callback();
+    }
+  }
+};
+const validateSmsCode = (rule, value, callback) => {
+  if (value === "") {
+    callback(new Error("请输入短信验证码"));
+  } else {
+    let regExp = new RegExp(/^\d{6}$/);
+    if (!regExp.test(value)) {
+      callback(new Error("请输入6位短信验证码"));
+    } else {
+      callback();
+    }
+  }
+};
+const validateLicenseCode = (rule, value, callback) => {
+  if (!value) {
+    callback(new Error("不能为空"));
+  } else {
+    callback();
+  }
+};
+const validateLicenseUrl = (rule, value, callback) => {
+  if (!value) {
+    callback(new Error("不能为空"));
+  } else {
+    callback();
+  }
+};
+const validateCorporate = (rule, value, callback) => {
+  if (!value) {
+    callback(new Error("不能为空"));
+  } else {
+    callback();
+  }
+};
+const validateCorporateIdCard = (rule, value, callback) => {
+  if (!value) {
+    callback(new Error("不能为空"));
+  } else {
+    callback();
+  }
+};
+const validateAddress = (rule, value, callback) => {
+  if (!value) {
+    callback(new Error("不能为空"));
+  } else {
+    callback();
+  }
+};
+export {
+  isExternal,
+  validateName,
+  validateLinkName,
+  validateTelephone,
+  validateVerfication,
+  validateSmsCode,
+  validateLicenseCode,
+  validateLicenseUrl,
+  validateCorporate,
+  validateCorporateIdCard,
+  validateAddress
+};
