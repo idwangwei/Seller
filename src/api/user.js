@@ -8,12 +8,12 @@ export function login(data) {
   });
 }
 
-export function getInfo() {
+export function getInfo(role) {
   return request({
     url: '/api/v1/merchant/account/getDetail',
     method: 'get',
     params: {
-      role: 'MERCHANT'
+      role: role
     }
   });
 }

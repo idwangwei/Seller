@@ -1,13 +1,6 @@
 <template>
   <div class="login-container">
-    <el-form
-      ref="loginForm"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
-      auto-complete="on"
-      label-position="left"
-    >
+    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
       <div class="title-container">
         <h3 class="title">补胎匠商家系统</h3>
       </div>
@@ -16,32 +9,14 @@
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="手机号码"
-          name="username"
-          type="text"
-          tabindex="1"
-          auto-complete="on"
-        />
+        <el-input ref="username" v-model="loginForm.username" placeholder="手机号码" name="username" type="text" tabindex="1" auto-complete="on" />
       </el-form-item>
 
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.password"
-          :type="passwordType"
-          placeholder="密码"
-          name="password"
-          tabindex="2"
-          auto-complete="on"
-          @keyup.enter.native="handleLogin"
-        />
+        <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" placeholder="密码" name="password" tabindex="2" auto-complete="on" @keyup.enter.native="handleLogin" />
         <span class="show-pwd" @click="showPwd">
           <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
@@ -50,25 +25,12 @@
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
-        <el-select
-          v-model="loginForm.role"
-          :key="role"
-          ref="role"
-          :type="passwordType"
-          name="role"
-          tabindex="3"
-          auto-complete="on"
-        >
+        <el-select ref="role" v-model="loginForm.role" :type="passwordType" name="role" tabindex="3" auto-complete="on">
           <el-option label="商家" value="MERCHANT"></el-option>
-          <el-option label="商家" value="OPERATOR"></el-option>
+          <el-option label="管理员" value="OPERATOR"></el-option>
         </el-select>
       </el-form-item>
-      <el-button
-        :loading="loading"
-        type="primary"
-        style="width:100%;margin-bottom:30px;margin-top:80px"
-        @click.native.prevent="handleLogin"
-      >Login</el-button>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;margin-top:80px" @click.native.prevent="handleLogin">Login</el-button>
 
       <div class="tips">
         <el-button type="text" @click="goRegister">注册</el-button>
@@ -80,7 +42,6 @@
 
 <script>
 import { validName } from "@/utils/validate";
-
 export default {
   name: "Login",
   data() {
@@ -88,9 +49,13 @@ export default {
       if (value === "") {
         callback(new Error("请输入密码"));
       } else {
-        if (this.loginForm.checkPass !== "") {
-          this.$refs.loginForm.validateField("checkPass");
-        }
+        callback();
+      }
+    };
+    const validateRole = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请上传营业执照图片"));
+      } else {
         callback();
       }
     };
@@ -104,7 +69,8 @@ export default {
         username: [{ required: true, trigger: "blur", validator: validName }],
         password: [
           { required: true, trigger: "blur", validator: validatePassword }
-        ]
+        ],
+        role: [{ required: true, trigger: "blur", validator: validateRole }]
       },
       loading: false,
       passwordType: "password",
@@ -224,11 +190,11 @@ $light_gray: #eee;
     margin: 0 auto;
     overflow: hidden;
   }
-  /deep/ .role-select .el-form-item__content{
+  /deep/ .role-select .el-form-item__content {
     display: flex;
-    .el-select{
+    .el-select {
       flex: 1;
-      .el-input{
+      .el-input {
         width: 100%;
       }
     }

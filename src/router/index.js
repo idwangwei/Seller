@@ -62,6 +62,28 @@ export const constantRoutes = [
     },
 
     {
+        path: '/merchant',
+        component: Layout,
+        redirect: '/merchant/table',
+        name: '商家管理',
+        meta: { title: '商家管理', icon: 'example' },
+        children: [
+            {
+                path: 'table',
+                name: '总览列表',
+                component: () => import('@/views/merchant/table/index'),
+                meta: { title: '总览列表', icon: 'table' }
+            },
+            {
+                path: 'other',
+                name: '其他',
+                component: () => import('@/views/merchant/other/index'),
+                meta: { title: '其他', icon: 'nested' }
+            }
+        ]
+    },
+
+    {
         path: '/example',
         component: Layout,
         redirect: '/example/table',

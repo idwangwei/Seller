@@ -109,12 +109,12 @@
           <template slot="append">
             <el-button
               type="primary"
-              @click="getSysCode"
               :disabled="countDown > 1"
               style="width:140px"
+              @click="getSysCode"
             >
               <span v-if="countDown < 1">获取短信验证码</span>
-              <span v-else>{{countDown}}秒后重试</span>
+              <span v-else>{{ countDown }}秒后重试</span>
             </el-button>
           </template>
         </el-input>
@@ -204,9 +204,7 @@ import {
   validateCorporateIdCard,
   validateAddress
 } from "@/utils/validate";
-import { mapGetters } from "vuex";
 import { getSysCode, register } from "@/api/user";
-import { clearInterval } from "timers";
 
 export default {
   name: "Register",
@@ -459,7 +457,9 @@ export default {
                 }
               });
             })
-            .catch(error => {})
+            .catch(error => {
+              console.log(error);
+            })
             .finally(() => {
               this.loading = false;
             });

@@ -13,7 +13,6 @@ const whiteList = ['/login', '/register']; // no redirect whitelist
 router.beforeEach(async(to, from, next) => {
     // start progress bar
     NProgress.start();
-    debugger;
     // set page title
     document.title = getPageTitle(to.meta.title);
 
@@ -28,7 +27,7 @@ router.beforeEach(async(to, from, next) => {
             next();
         } else {
             const hasGetUserInfo = store.getters.name;
-            if (hasGetUserInfo) {
+            if (hasGetUserInfo || store.getters.isOperator) {
                 next();
             } else {
                 try {
@@ -37,6 +36,7 @@ router.beforeEach(async(to, from, next) => {
 
                     next();
                 } catch (error) {
+                    debugger;
                     // remove token and go to login page to re-login
                     await store.dispatch('user/resetToken');
                     Message.error(error || 'Has Error');

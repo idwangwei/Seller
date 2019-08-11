@@ -1,6 +1,6 @@
 const isExternal = (path) => {
   return /^(https?:|mailto:|tel:)/.test(path);
-}
+};
 const validateName = (rule, value, callback) => {
   if (!value.trim().length) {
     callback(new Error("请输入商家名称"));
@@ -28,7 +28,7 @@ const validateVerfication = (rule, value, callback) => {
   if (value === "") {
     callback(new Error("请输入图形验证码"));
   } else {
-    let regExp = new RegExp(/^\w{5}$/);
+    const regExp = new RegExp(/^\w{5}$/);
     if (!regExp.test(value)) {
       callback(new Error("请输入5位图形验证码"));
     } else {
@@ -40,7 +40,7 @@ const validateSmsCode = (rule, value, callback) => {
   if (value === "") {
     callback(new Error("请输入短信验证码"));
   } else {
-    let regExp = new RegExp(/^\d{6}$/);
+    const regExp = new RegExp(/^\d{6}$/);
     if (!regExp.test(value)) {
       callback(new Error("请输入6位短信验证码"));
     } else {
