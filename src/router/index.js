@@ -103,6 +103,33 @@ export const constantRoutes = [
             }
         ]
     },
+    {
+        path: '/merchantCommodity',
+        component: Layout,
+        redirect: '/merchantCommodity/table',
+        name: '商品管理',
+        meta: { title: '商品管理', icon: 'example' },
+        children: [
+            {
+                path: 'table',
+                name: '商品列表',
+                component: () => import('@/views/merchantCommodity/table/index'),
+                meta: { title: '商品列表', icon: 'table' }
+            },
+            {
+                path: 'new',
+                name: '商品创建',
+                component: () => import('@/views/merchantCommodity/new/CommodityNew'),
+                meta: { title: '商品创建', icon: 'table' }
+            },
+            {
+                path: 'other',
+                name: '其他',
+                component: () => import('@/views/merchantCommodity/other/index'),
+                meta: { title: '其他', icon: 'nested' }
+            }
+        ]
+    },
 
     {
         path: '/example',
