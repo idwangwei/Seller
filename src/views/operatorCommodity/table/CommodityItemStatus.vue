@@ -1,12 +1,12 @@
 <template>
   <el-popover v-model="visible" placement="top" width="160">
 
-    <template v-if="mapData.key === 'NEW'">
+    <template v-if="mapData.key === 'WAIT_AUDIT'">
       <div>
-        <p>新建商品申请上架</p>
+        <p>新建商品上架申请</p>
         <div style="text-align: right; margin: 0">
-          <el-button size="mini" type="text" @click="visible=false">取消</el-button>
-          <el-button type="primary" size="mini" @click="putAway">申请</el-button>
+          <el-button size="mini" type="text" @click="refused">拒绝</el-button>
+          <el-button type="primary" size="mini" @click="pass">通过</el-button>
         </div>
       </div>
     </template>
@@ -19,22 +19,13 @@
         </div>
       </div>
     </template>
-    <template v-else-if="mapData.key === 'AUDIT_REFUSED'||mapData.key === 'MERCHANT_SOLD_OUT' ||mapData.key === 'MANAGER_SOLD_OUT' ">
-      <div>
-        <p>重新申请上架商品</p>
-        <div style="text-align: right; margin: 0">
-          <el-button size="mini" type="text" @click="visible=false">取消</el-button>
-          <el-button type="primary" size="mini" @click="putAway">申请</el-button>
-        </div>
-      </div>
-    </template>
     <el-button slot="reference" :type="mapData.type" :disabled="disabled">{{ mapData.label }}</el-button>
   </el-popover>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import { putAway, soldOut } from '@/api/merchantCommodity';
+import { refused, pass, soldOut } from '@/api/operatorCommodity';
 export default {
   name: 'ListStatus',
   props: {
@@ -62,16 +53,23 @@ export default {
       return findtype || {};
     },
     disabled() {
-      const disabledStatus = ['WAIT_AUDIT'];
+      const disabledStatus = ['NEW', 'AUDIT_REFUSED', 'MERCHANT_SOLD_OUT', 'MANAGER_SOLD_OUT'];
       return disabledStatus.indexOf(this.status) !== -1;
     }
   },
   methods: {
-    putAway() {
+    refused() {
       this.visible = false;
-      putAway({ commodityId: this.commodityId }).then(resp => {
+      refused({ commodityId: this.commodityId }).then(resp => {
         console.log('pass');
-        this.$emit('commodity-status-change', { id: this.commodityId, status: 'WAIT_AUDIT' });
+        this.$emit('commodity-status-change', { id: this.commodityId, status: 'AUDIT_REFUSED' });
+      });
+    },
+    pass() {
+      this.visible = false;
+      pass({ commodityId: this.commodityId }).then(resp => {
+        console.log('pass');
+        this.$emit('commodity-status-change', { id: this.commodityId, status: 'SELLING' });
       });
     },
     soldOut() {
@@ -80,7 +78,7 @@ export default {
         commodityId: this.commodityId
       }).then(resp => {
         console.log('refuse');
-        this.$emit('commodity-status-change', { id: this.commodityId, status: 'MERCHANT_SOLD_OUT' });
+        this.$emit('commodity-status-change', { id: this.commodityId, status: 'OPERATOR_SOLD_OUT' });
       });
     }
   }

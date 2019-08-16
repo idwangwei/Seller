@@ -94,7 +94,7 @@ export default {
       });
     },
 
-    goToCreate(){
+    goToCreate() {
       this.$router.push({ path: "/merchantCommodity/new" });
     },
 

@@ -83,22 +83,22 @@ export const constantRoutes = [
         ]
     },
     {
-        path: '/commodity',
+        path: '/operatorCommodity',
         component: Layout,
-        redirect: '/commodity/table',
+        redirect: '/operatorCommodity/table',
         name: '商品管理',
         meta: { title: '商品管理', icon: 'example' },
         children: [
             {
                 path: 'table',
                 name: '商品列表',
-                component: () => import('@/views/commodity/table/index'),
+                component: () => import('@/views/operatorCommodity/table/index'),
                 meta: { title: '商品列表', icon: 'table' }
             },
             {
                 path: 'other',
                 name: '商品其他',
-                component: () => import('@/views/commodity/other/index'),
+                component: () => import('@/views/operatorCommodity/other/index'),
                 meta: { title: '商品其他', icon: 'nested' }
             }
         ]
@@ -138,12 +138,7 @@ export const constantRoutes = [
         name: 'Example',
         meta: { title: 'Example', icon: 'example' },
         children: [
-            {
-                path: 'table',
-                name: 'Table',
-                component: () => import('@/views/table/index'),
-                meta: { title: 'Table', icon: 'table' }
-            },
+
             {
                 path: 'tree',
                 name: 'Tree',

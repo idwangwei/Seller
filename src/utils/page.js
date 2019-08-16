@@ -19,6 +19,9 @@ export class Page {
         this.current = this.current;
     }
     setTotal(val) {
-        this.setTotal = this.total;
+        this.total = this.total;
+    }
+    unset() {
+        this.current = 1;
     }
 }
