@@ -70,15 +70,36 @@ export const constantRoutes = [
         children: [
             {
                 path: 'table',
-                name: '总览列表',
+                name: '商家列表',
                 component: () => import('@/views/merchant/table/index'),
-                meta: { title: '总览列表', icon: 'table' }
+                meta: { title: '商家列表', icon: 'table' }
             },
             {
                 path: 'other',
-                name: '其他',
+                name: '商家其他',
                 component: () => import('@/views/merchant/other/index'),
-                meta: { title: '其他', icon: 'nested' }
+                meta: { title: '商家其他', icon: 'nested' }
+            }
+        ]
+    },
+    {
+        path: '/commodity',
+        component: Layout,
+        redirect: '/commodity/table',
+        name: '商品管理',
+        meta: { title: '商品管理', icon: 'example' },
+        children: [
+            {
+                path: 'table',
+                name: '商品列表',
+                component: () => import('@/views/commodity/table/index'),
+                meta: { title: '商品列表', icon: 'table' }
+            },
+            {
+                path: 'other',
+                name: '商品其他',
+                component: () => import('@/views/commodity/other/index'),
+                meta: { title: '商品其他', icon: 'nested' }
             }
         ]
     },

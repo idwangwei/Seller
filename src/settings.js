@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '补胎匠商家系统',
+  title: '补胎匠管理系统',
 
   /**
    * @type {boolean} true | false

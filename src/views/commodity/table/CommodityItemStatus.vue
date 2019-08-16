@@ -67,7 +67,7 @@
 import { mapGetters } from "vuex";
 import { refuse, pass, banner } from "@/api/merchantTable";
 export default {
-    name: "ListStatus",
+    name: "CommodityItemStatus",
     props: {
         status: {
             type: String,
