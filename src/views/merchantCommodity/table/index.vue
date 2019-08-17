@@ -2,7 +2,6 @@
   <div class="app-container">
     <el-row>
       <el-col :span="12">
-        <!-- <commodity-new></commodity-new> -->
         <el-button type="primary" @click="goToCreate">创建商品</el-button>
       </el-col>
       <el-col :span="12">
@@ -30,17 +29,29 @@
       </el-table-column>
       <el-table-column label="产品标题" prop="title"></el-table-column>
       <el-table-column label="产品名称" prop="productName" width="150"></el-table-column>
-      <el-table-column label="价格" prop="price" width="95"></el-table-column>
+      <el-table-column label="价格" prop="price" width="95">
+        <template slot-scope="scope">
+          {{scope.row.price | formatPrice}}
+        </template>
+      </el-table-column>
       <el-table-column label="适用车型" prop="carTypeName" width="100"></el-table-column>
       <el-table-column label="创建日期" prop="createTime" width="160"></el-table-column>
       <el-table-column label="状态" width="150">
         <template slot-scope="scope">
-          <commodity-item-status :status="scope.row.status" :commodity-id="scope.row.id" @commodity-status-change="statusChange($event)"></commodity-item-status>
+          <merchant-commodity-status :status="scope.row.status" :commodity-id="scope.row.id" @commodity-status-change="statusChange($event)"></merchant-commodity-status>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="80">
+      <el-table-column label="操作" width="120">
         <template slot-scope="scope">
-          <commodity-item-detail :item-data="scope.row"></commodity-item-detail>
+          <el-row>
+            <el-col :span="12">
+              <commodity-item-detail :commodity-id="scope.row.id"></commodity-item-detail>
+
+            </el-col>
+            <el-col :span="12">
+              <merchant-commodity-modify :item-data="scope.row"></merchant-commodity-modify>
+            </el-col>
+          </el-row>
         </template>
       </el-table-column>
     </el-table>
@@ -54,15 +65,23 @@
 <script>
 import { getList } from '@/api/merchantCommodity';
 import { Page } from '@/utils/page';
-// import CommodityNew from '../components/CommodityNew';
-import CommodityItemDetail from '../components/CommodityItemDetail';
-import CommodityItemStatus from '../components/CommodityItemStatus';
+import CommodityItemDetail from '@/components/commodity/CommodityItemDetail';
+import MerchantCommodityStatus from '../components/merchantCommodityStatus';
+import MerchantCommodityModify from '../components/merchantCommodityModify';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'MerchantCommodityTabel',
-  components: { CommodityItemDetail, CommodityItemStatus },
-  filters: {},
+  components: { CommodityItemDetail, MerchantCommodityStatus, MerchantCommodityModify },
+  filters: {
+    formatPrice: function (value) {
+      if (!value) {
+        return ''
+      } else {
+        return `￥${value / 100}`;
+      }
+    }
+  },
   data() {
     return {
       list: [],

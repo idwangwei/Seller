@@ -13,3 +13,11 @@ export function setToken(token) {
 export function removeToken() {
     return Cookies.remove(TokenKey);
 }
+
+export function setRole(role) {
+    return Cookies.set('role', role);
+}
+
+export function getRole() {
+    return Cookies.get('role');
+}

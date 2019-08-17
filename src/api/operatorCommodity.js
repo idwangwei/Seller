@@ -21,32 +21,32 @@ export function getListByMerchantId(params) {
         params: { role: 'OPERATOR', ...params }
     });
 }
-export function getDetail(params) {
+export function getDetailByManager(params) {
     return request({
         url: '/api/v1/manager/commodity/getCommodityDetail',
         method: 'get',
         params
     });
 }
-export function refused(params) {
+export function refused(data) {
     return request({
         url: '/api/v1/manager/commodity/refusedCommodity',
         method: 'post',
-        params
+        data
     });
 }
-export function pass(params) {
+export function pass(data) {
     return request({
         url: '/api/v1/manager/commodity/passCommodity',
         method: 'post',
-        params
+        data
     });
 }
 
-export function soldOut(params) {
+export function soldOut(data) {
     return request({
         url: '/api/v1/manager/commodity/soldOutCommodity',
         method: 'post',
-        params
+        data
     });
 }

@@ -1,5 +1,5 @@
 <template>
-  <el-popover v-model="visible" placement="top" width="160">
+  <el-popover v-model="visible" placement="left" width="200">
 
     <template v-if="mapData.key === 'NEW'">
       <div>
@@ -36,7 +36,7 @@
 import { mapGetters } from 'vuex';
 import { putAway, soldOut } from '@/api/merchantCommodity';
 export default {
-  name: 'ListStatus',
+  name: 'MerchantCommodityStatus',
   props: {
     status: {
       type: String,

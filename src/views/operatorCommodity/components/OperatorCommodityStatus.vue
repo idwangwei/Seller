@@ -1,10 +1,25 @@
 <template>
-  <el-popover v-model="visible" placement="top" width="160">
+  <el-popover v-model="visible" placement="left" :width="popoverWidth">
 
     <template v-if="mapData.key === 'WAIT_AUDIT'">
       <div>
-        <p>新建商品上架申请</p>
-        <div style="text-align: right; margin: 0">
+        <el-row>
+          <el-col :span="4">
+            <p>操作：</p>
+          </el-col>
+          <el-col :span="20">
+            <p>新建商品上架申请处理</p>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="4">
+            <p>备注：</p>
+          </el-col>
+          <el-col :span="20">
+            <el-input v-model="refuseReason" type="textarea" :rows="2" placeholder="请输入内容"></el-input>
+          </el-col>
+        </el-row>
+        <div style="text-align: right; margin: 10px 0">
           <el-button size="mini" type="text" @click="refused">拒绝</el-button>
           <el-button type="primary" size="mini" @click="pass">通过</el-button>
         </div>
@@ -27,7 +42,7 @@
 import { mapGetters } from 'vuex';
 import { refused, pass, soldOut } from '@/api/operatorCommodity';
 export default {
-  name: 'ListStatus',
+  name: 'OperatorCommodityStatus',
   props: {
     status: {
       type: String,
@@ -40,7 +55,8 @@ export default {
   },
   data() {
     return {
-      visible: false
+      visible: false,
+      refuseReason: ''
     };
   },
   computed: {
@@ -55,12 +71,19 @@ export default {
     disabled() {
       const disabledStatus = ['NEW', 'AUDIT_REFUSED', 'MERCHANT_SOLD_OUT', 'MANAGER_SOLD_OUT'];
       return disabledStatus.indexOf(this.status) !== -1;
+    },
+    popoverWidth() {
+      let defaultWidth = 200;
+      if (this.mapData.key === "WAIT_AUDIT") {
+        defaultWidth = 300;
+      }
+      return defaultWidth;
     }
   },
   methods: {
     refused() {
       this.visible = false;
-      refused({ commodityId: this.commodityId }).then(resp => {
+      refused({ commodityId: this.commodityId, refuseReason: this.refuseReason }).then(resp => {
         console.log('pass');
         this.$emit('commodity-status-change', { id: this.commodityId, status: 'AUDIT_REFUSED' });
       });

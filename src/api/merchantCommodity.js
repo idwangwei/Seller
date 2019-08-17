@@ -7,25 +7,25 @@ export function getList(params) {
         params
     });
 }
-export function soldOut(params) {
+export function soldOut(data) {
     return request({
         url: '/api/v1/merchant/commodity/soldOutCommodity',
         method: 'post',
-        params
+        data
     });
 }
-export function putAway(params) {
+export function putAway(data) {
     return request({
         url: '/api/v1/merchant/commodity/putawayCommodity',
         method: 'post',
-        params
+        data
     });
 }
-export function add(params) {
+export function add(data) {
     return request({
         url: '/api/v1/merchant/commodity/addCommodity',
         method: 'post',
-        params
+        data
     });
 }
 export function getDetail(params) {
@@ -35,10 +35,10 @@ export function getDetail(params) {
         params
     });
 }
-export function modify(params) {
+export function modify(data) {
     return request({
         url: '/api/v1/merchant/commodity/modifyCommodity',
         method: 'post',
-        params
+        data
     });
 }

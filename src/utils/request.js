@@ -54,7 +54,7 @@ service.interceptors.response.use(
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== '10000') {
       Message({
-        message: res.message || 'Error',
+        message: `code:${res.code} message:${res.message || 'Error'}`,
         type: 'error',
         duration: 5 * 1000
       });
@@ -67,6 +67,7 @@ service.interceptors.response.use(
           cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
+          debugger;
           store.dispatch('user/resetToken').then(() => {
             location.reload();
           });
@@ -83,6 +84,10 @@ service.interceptors.response.use(
       message: error.message,
       type: 'error',
       duration: 5 * 1000
+    });
+    debugger;
+    store.dispatch('user/resetToken').then(() => {
+      location.reload();
     });
     return Promise.reject(error);
   }
