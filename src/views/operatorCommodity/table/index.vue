@@ -1,10 +1,8 @@
 <template>
   <div class="app-container">
     <el-row>
-      <el-col :span="6">
+      <el-col :span="12">
         <el-button type="primary" icon="el-icon-search" :loading="connectionLoading" @click="getMaxConnectionList">获取联系最多</el-button>
-      </el-col>
-      <el-col :span="6">
         <el-button type="primary" icon="el-icon-search" :loading="interestLoading" @click="getMaxInterestList">获取收藏最多</el-button>
       </el-col>
       <el-col :span="12">
