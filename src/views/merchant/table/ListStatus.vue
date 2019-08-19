@@ -40,7 +40,7 @@
         <el-row>
           <el-col :span="4"><p>备注：</p></el-col>
           <el-col :span="20">
-            <el-input v-model="refuseReason" type="textarea" :rows="2" placeholder="请输入内容"></el-input>
+            <el-input v-model="bannerReason" type="textarea" :rows="2" placeholder="请输入内容"></el-input>
           </el-col>
         </el-row>
 
@@ -94,7 +94,7 @@ export default {
         popoverWidth() {
             let defaultWidth = 200;
             if (
-                this.mapData === "WAIT_AUDIT" ||
+                this.mapData.key === "WAIT_AUDIT" ||
                 this.mapData.key === "AUDIT_PASS"
             ) {
                 defaultWidth = 400;

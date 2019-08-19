@@ -50,3 +50,10 @@ export function soldOut(data) {
         data
     });
 }
+export function getMerchantListByName(params) {
+    return request({
+        url: '/api/v1/manager/merchant/getListByName',
+        method: 'get',
+        params
+    });
+}

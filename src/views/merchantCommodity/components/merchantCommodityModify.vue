@@ -1,13 +1,13 @@
 <template>
   <div class="list-detail-componets">
-    <el-popover placement="left" title="提示" width="300" trigger="click" content="审核中，销售中的商品无法修改" v-if="itemData.status === 'WAIT_AUDIT' || itemData.status === 'SELLING'">
-      <el-button type="text" slot="reference">修改</el-button>
+    <el-popover v-if="itemData.status === 'WAIT_AUDIT' || itemData.status === 'SELLING'" placement="left" title="提示" width="300" trigger="click" content="审核中，销售中的商品无法修改">
+      <el-button slot="reference" type="text">修改</el-button>
     </el-popover>
 
     <div v-else>
       <el-button type="text" @click="showModify">修改</el-button>
       <el-dialog title="商品修改" :visible.sync="dialogVisible" center>
-        <el-form label-position="left" label-width="100px" :model="form" :rules="rules" ref="form">
+        <el-form ref="form" label-position="left" label-width="100px" :model="form" :rules="rules">
           <el-form-item label="商品标题" prop="title">
             <el-input v-model="form.title"></el-input>
           </el-form-item>
@@ -44,7 +44,7 @@
             <el-input v-model="form.extraDesc"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm()" :loading="loading">立即修改</el-button>
+            <el-button type="primary" :loading="loading" @click="submitForm()">立即修改</el-button>
           </el-form-item>
         </el-form>
       </el-dialog>
@@ -82,15 +82,15 @@ export default {
         stock: [{ required: true, message: "请输入库存", trigger: "blur" }],
         title: [{ required: true, message: "请输入商品标题", trigger: "blur" }],
         usedTime: [{ required: true, message: "请选择时长", trigger: "change" }],
-        warranty: [{ required: true, message: "请选择三包", trigger: "change" }],
+        warranty: [{ required: true, message: "请选择三包", trigger: "change" }]
       },
-      usedTimeList: ['一年', '二年', '三年', '四年', '五年及以上'],
+      usedTimeList: ['一年', '二年', '三年', '四年', '五年及以上']
     };
-  },
-  created() {
   },
   computed: {
 
+  },
+  created() {
   },
   methods: {
     showModify() {
@@ -104,7 +104,7 @@ export default {
         this.form.usedTime = resp.data.usedTime;
         this.form.warranty = resp.data.warranty;
         this.form.warrantyTime = resp.data.warrantyTime;
-      })
+      });
     },
     submitForm() {
       this.loading = true;
@@ -116,7 +116,7 @@ export default {
         });
       }).finally(() => {
         this.loading = false;
-      })
+      });
     }
   }
 };

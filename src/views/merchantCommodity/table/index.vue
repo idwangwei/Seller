@@ -31,7 +31,7 @@
       <el-table-column label="产品名称" prop="productName" width="150"></el-table-column>
       <el-table-column label="价格" prop="price" width="95">
         <template slot-scope="scope">
-          {{scope.row.price | formatPrice}}
+          {{ scope.row.price | formatPrice }}
         </template>
       </el-table-column>
       <el-table-column label="适用车型" prop="carTypeName" width="100"></el-table-column>
@@ -74,9 +74,9 @@ export default {
   name: 'MerchantCommodityTabel',
   components: { CommodityItemDetail, MerchantCommodityStatus, MerchantCommodityModify },
   filters: {
-    formatPrice: function (value) {
+    formatPrice: function(value) {
       if (!value) {
-        return ''
+        return '';
       } else {
         return `￥${value / 100}`;
       }
