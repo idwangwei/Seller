@@ -23,7 +23,6 @@ export default {
       'role'
     ]),
     routes() {
-        debugger;
       let routes = this.$router.options.routes;
       if (this.role === 'MERCHANT') {
         routes = routes.filter(v => v.path !== '/merchant' && v.path !== '/operatorCommodity');

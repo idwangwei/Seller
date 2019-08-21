@@ -1,7 +1,7 @@
 <template>
   <div class="list-detail-componets">
 
-    <el-button type="text" @click="dialogVisible = true">查看</el-button>
+    <el-button type="text" @click="showDetil">查看</el-button>
 
     <el-dialog title="商户详情" :visible.sync="dialogVisible">
       <el-row class="detail-row-item">
@@ -84,9 +84,22 @@
         <el-col :span="12">
           <el-row>
             <el-col :span="6">
-              <div class="">营业执照：</div>
+              <div class="">备注：</div>
             </el-col>
             <el-col :span="18">
+              <div class="">{{ itemData.reason }}</div>
+            </el-col>
+          </el-row>
+        </el-col>
+        
+      </el-row>
+      <el-row  class="detail-row-item">
+        <el-col :span="24">
+          <el-row>
+            <el-col :span="3">
+              <div class="">营业执照：</div>
+            </el-col>
+            <el-col :span="21">
               <div class="">
                 <el-image style="width: 100px; height: 100px" :src="itemData.licenseUrl" :preview-src-list="srcList"></el-image>
               </div>
@@ -100,17 +113,20 @@
 </template>
 
 <script>
+import { getDetail } from '@/api/merchantTable';
+
 export default {
   name: 'ListDetail',
   props: {
-    itemData: {
-      type: Object,
+    merchantId: {
+      type: String,
       required: true
     }
   },
   data() {
     return {
-      dialogVisible: false
+      dialogVisible: false,
+      itemData: {}
     };
   },
   computed: {
@@ -118,17 +134,21 @@ export default {
       return [this.itemData.licenseUrl];
     }
   },
+  created() { },
   methods: {
     showDetil() {
-
+      this.dialogVisible = true;
+      getDetail({ merchantId: this.merchantId }).then(resp => {
+        this.itemData = resp.data
+      })
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.list-detail-componets{
-  .detail-row-item{
+.list-detail-componets {
+  .detail-row-item {
     margin: 1rem auto;
   }
 }

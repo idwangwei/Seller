@@ -37,6 +37,7 @@ router.beforeEach(async(to, from, next) => {
                     next();
                 } catch (error) {
                     // remove token and go to login page to re-login
+                    debugger;
                     await store.dispatch('user/resetToken');
                     Message.error(error || 'Has Error');
                     next(`/login?redirect=${to.path}`);
@@ -51,6 +52,7 @@ router.beforeEach(async(to, from, next) => {
             // in the free login whitelist, go directly
             next();
         } else {
+            debugger;
             // other pages that do not have permission to access are redirected to the login page.
             next(`/login?redirect=${to.path}`);
             NProgress.done();

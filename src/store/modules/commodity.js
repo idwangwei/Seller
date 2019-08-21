@@ -32,7 +32,6 @@ const actions = {
       getCommodityStatusList().then(response => {
         const { data } = response;
         const list = [];
-        debugger;
         for (const key in data) {
           list.push({ key, label: data[key], type: typeColorMap[key] || '' });
         }

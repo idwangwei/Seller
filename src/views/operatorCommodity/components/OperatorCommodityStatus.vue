@@ -64,7 +64,6 @@ export default {
       'commodityStatusList'
     ]),
     mapData() {
-      debugger;
       const findtype = this.commodityStatusList.find(v => v.key === this.status);
       return findtype || {};
     },

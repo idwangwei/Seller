@@ -97,9 +97,6 @@ export default {
     ])
   },
   created() {
-    this.$store.dispatch("commodity/getCommodityStatusList");
-    this.$store.dispatch("commodity/getCommodityBrandList");
-    this.$store.dispatch("commodity/getCarTypeList");
     this.fetchData();
   },
   methods: {

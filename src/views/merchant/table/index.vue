@@ -15,7 +15,7 @@
       </el-table-column>
       <el-table-column label="操作" width="80">
         <template slot-scope="scope">
-          <list-detail :item-data="scope.row"></list-detail>
+          <list-detail :merchant-id="scope.row.id"></list-detail>
         </template>
       </el-table-column>
     </el-table>
@@ -60,7 +60,7 @@ export default {
     ])
   },
   created() {
-    this.$store.dispatch("app/setStatusList");
+    !this.statusList || this.$store.dispatch("app/setStatusList");
     this.fetchData();
   },
   methods: {

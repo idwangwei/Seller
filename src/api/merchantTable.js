@@ -7,6 +7,14 @@ export function getList(params) {
     params
   });
 }
+
+export function getDetail(params) {
+  return request({
+    url: '/api/v1/manager/merchant/getDetail',
+    method: 'get',
+    params
+  });
+}
 export function banner(data) {
   return request({
     url: '/api/v1/manager/merchant/banner',

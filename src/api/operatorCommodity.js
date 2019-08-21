@@ -57,3 +57,10 @@ export function getMerchantListByName(params) {
         params
     });
 }
+export function getDemandList(params) {
+    return request({
+        url: '/api/v1/manager/customer/getDemandList',
+        method: 'get',
+        params: { ...params, role: 'OPERATOR' }
+    });
+}

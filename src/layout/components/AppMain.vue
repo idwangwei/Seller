@@ -7,12 +7,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'AppMain',
   computed: {
+    ...mapGetters(["carTypeList", "commodityBrandList", "commodityStatusList"]),
     key() {
       return this.$route.path;
     }
+  },
+  created() {
+    !this.commodityBrandList.lenght && this.$store.dispatch("commodity/getCommodityBrandList");
+    !this.carTypeList.lenght && this.$store.dispatch("commodity/getCarTypeList");
+    !this.commodityStatusList.lenght && this.$store.dispatch("commodity/getCommodityStatusList");
   }
 };
 </script>
@@ -25,7 +33,7 @@ export default {
   position: relative;
   overflow: hidden;
 }
-.fixed-header+.app-main {
+.fixed-header + .app-main {
   padding-top: 50px;
 }
 </style>

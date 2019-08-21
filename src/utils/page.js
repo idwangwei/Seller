@@ -4,7 +4,7 @@ export class Page {
     total;
     sizeList = [10, 20, 50, 100];
 
-    constructor(total = 0, size = 20, current = 1) {
+    constructor(total = 0, size = 10, current = 1) {
         this.total = total;
         this.size = size;
         this.current = current;
@@ -13,13 +13,13 @@ export class Page {
         return { page: this.current, pageSize: this.size };
     }
     setSize(val) {
-        this.size = this.size;
+        this.size = val;
     }
     setCurrent(val) {
-        this.current = this.current;
+        this.current = val;
     }
     setTotal(val) {
-        this.total = this.total;
+        this.total = val;
     }
     unset() {
         this.current = 1;

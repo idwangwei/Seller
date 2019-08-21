@@ -6,6 +6,7 @@ const state = {
   token: getToken(),
   name: '',
   avatar: '',
+  info: {},
   role: getRole()
 };
 
@@ -22,11 +23,15 @@ const mutations = {
   SET_ROLE: (state, role) => {
     state.role = role;
   },
+  SET_INFO: (state, info) => {
+    state.info = info;
+  },
   CLEAR: (state) => {
     state.token = '';
     state.name = '';
     state.avatar = '';
     state.role = '';
+    state.info = {};
   }
 };
 
@@ -44,7 +49,6 @@ const actions = {
           setToken(data.accessToken);
           resolve();
         }).catch(error => {
-          debugger;
           reject(error);
         });
     });
@@ -63,11 +67,11 @@ const actions = {
             reject('Verification failed, please Login again.');
           }
           const { name, avatar } = data;
+          commit('SET_INFO', data);
           commit('SET_NAME', name);
           commit('SET_AVATAR', avatar);
           resolve(data);
         }).catch(error => {
-          debugger;
           reject(error);
         });
     });

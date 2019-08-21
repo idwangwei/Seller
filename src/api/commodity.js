@@ -16,7 +16,7 @@ export function getCarTypeList(params) {
 }
 export function getCommodityBrandList(params) {
     return request({
-        url: '/open/commodity/getCommodityBrandList',
+        url: '/open/commodity/getBrandDetailList',
         method: 'get',
         params
     });

@@ -7,6 +7,7 @@ import store from '@/store';
 import {
   getToken
 } from '@/utils/auth';
+import Vue from 'vue';
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -67,7 +68,6 @@ service.interceptors.response.use(
           cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
-          debugger;
           store.dispatch('user/resetToken').then(() => {
             location.reload();
           });
@@ -79,18 +79,24 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error); // for debug
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    });
-    debugger;
-    store.dispatch('user/resetToken').then(() => {
-      location.reload();
-    });
+    errorHandle(error);
     return Promise.reject(error);
   }
 );
-
+const errorHandle = (error) => {
+  const { response = {} } = error;
+  const { data = {} } = response;
+  if (data.code === '21011') {
+    store.dispatch('user/resetToken').then(() => {
+      location.reload();
+    });
+  } else {
+    Message({
+      dangerouslyUseHTMLString: true,
+      message: `<p>CODE：${data.code}</p><p>MESSAGE：${data.message}</p>`,
+      type: 'error',
+      duration: 5 * 1000
+    });
+  }
+};
 export default service;

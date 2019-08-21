@@ -139,14 +139,13 @@ export default {
         ...mapGetters(["commodityStatusList"])
     },
     created() {
-        this.$store.dispatch("commodity/getCommodityStatusList");
-        this.$store.dispatch("commodity/getCommodityBrandList");
-        this.$store.dispatch("commodity/getCarTypeList");
         this.fetchData();
     },
     methods: {
         getMaxConnectionList(type) {
             this.connectionLoading = true;
+            this.formInline.status = '';
+            this.formInline.merchantId = '';
             getMaxConnectionList(this.page.getQueryParam())
                 .then(resp => {
                     this.list = resp.data.list;
@@ -159,6 +158,8 @@ export default {
 
         getMaxInterestList() {
             this.interestLoading = true;
+            this.formInline.status = '';
+            this.formInline.merchantId = '';
             getMaxInterestList(this.page.getQueryParam())
                 .then(resp => {
                     this.list = resp.data.list;

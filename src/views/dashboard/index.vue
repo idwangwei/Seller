@@ -1,18 +1,21 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
+    <div class="dashboard-text">名称: {{ userInfo.name }}</div>
+    <el-alert v-if="userInfo.status==='AUDIT_REFUSED'" :title="userInfo.statusDesc" type="info" :description="userInfo.reason" show-icon>
+    </el-alert>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+// import { mapGetters } from 'vuex';
 
 export default {
   name: 'Dashboard',
   computed: {
-    ...mapGetters([
-      'name'
-    ])
+    userInfo() {
+      debugger;
+      return this.$store.state.user.info;
+    }
   },
   mounted() {
   }
