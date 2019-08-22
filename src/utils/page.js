@@ -18,6 +18,12 @@ export class Page {
     setCurrent(val) {
         this.current = val;
     }
+    getSize() {
+        return this.size;
+    }
+    getCurrent() {
+        return this.current;
+    }
     setTotal(val) {
         this.total = val;
     }

@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
-    <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" highlight-current-row border >
-      <el-table-column type="index" width="50"></el-table-column>
+    <el-table v-loading="listLoading" :data="list" element-loading-text="Loading" highlight-current-row border>
+      <el-table-column type="index" width="50" :index="indexMethod"></el-table-column>
       <el-table-column label="需求详情" prop="content"></el-table-column>
       <el-table-column label="联系地址" prop="address"></el-table-column>
       <el-table-column label="联系电话" prop="phoneNum" width="150"></el-table-column>
@@ -16,7 +16,7 @@
 
 <script>
 import {
-  getDemandList,
+  getDemandList
 } from "@/api/operatorCommodity";
 import { Page } from "@/utils/page";
 
@@ -29,7 +29,7 @@ export default {
       list: [],
       listLoading: true,
       page: new Page(),
-      layout: "total, sizes, prev, pager, next, jumper, slot",
+      layout: "total, sizes, prev, pager, next, jumper, slot"
     };
   },
   computed: {},
@@ -38,9 +38,8 @@ export default {
   },
   methods: {
     fetchData() {
-      this.page.unset();
+    //   this.page.unset();
       this.listLoading = true;
-
       getDemandList({ ...this.page.getQueryParam() })
         .then(resp => {
           this.list = resp.data.list;
@@ -58,6 +57,9 @@ export default {
       this.page.setCurrent(val);
       this.fetchData();
     },
+    indexMethod(index) {
+        return this.page.getSize() * (this.page.getCurrent() - 1) + index + 1;
+    }
   }
 };
 </script>

@@ -38,7 +38,7 @@
             ></el-autocomplete>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="fetchData">查询</el-button>
+            <el-button type="primary" @click="fetchData(true)">查询</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -51,7 +51,7 @@
       element-loading-text="Loading"
       highlight-current-row
     >
-      <el-table-column type="index" width="50"></el-table-column>
+      <el-table-column type="index" width="50" :index="indexMethod"></el-table-column>
       <el-table-column label="首页图片" width="180">
         <template slot-scope="scope">
           <el-image
@@ -132,7 +132,8 @@ export default {
             page: new Page(),
             layout: "total, sizes, prev, pager, next, jumper, slot",
             searchList: [],
-            searchName: ""
+            searchName: "",
+            queryType: ""
         };
     },
     computed: {
@@ -142,10 +143,23 @@ export default {
         this.fetchData();
     },
     methods: {
-        getMaxConnectionList(type) {
+        getMaxConnectionList() {
+            this.formInline.status = null;
+            this.formInline.merchantId = null;
+            this.queryType = "C";
+            this.page.unset();
+            this.fetchDataByConnection();
+        },
+
+        getMaxInterestList() {
+            this.formInline.status = null;
+            this.formInline.merchantId = null;
+            this.queryType = "I";
+            this.page.unset();
+            this.fetchDataByInterest();
+        },
+        fetchDataByConnection() {
             this.connectionLoading = true;
-            this.formInline.status = '';
-            this.formInline.merchantId = '';
             getMaxConnectionList(this.page.getQueryParam())
                 .then(resp => {
                     this.list = resp.data.list;
@@ -155,11 +169,8 @@ export default {
                     this.connectionLoading = false;
                 });
         },
-
-        getMaxInterestList() {
+        fetchDataByInterest() {
             this.interestLoading = true;
-            this.formInline.status = '';
-            this.formInline.merchantId = '';
             getMaxInterestList(this.page.getQueryParam())
                 .then(resp => {
                     this.list = resp.data.list;
@@ -169,9 +180,11 @@ export default {
                     this.interestLoading = false;
                 });
         },
-
-        fetchData() {
-            this.page.unset();
+        fetchData(unset) {
+            if (unset) {
+                this.page.unset();
+            }
+            this.queryType = "";
             this.listLoading = true;
 
             getListByMerchantId({
@@ -188,11 +201,29 @@ export default {
         },
         handleSizeChange(val) {
             this.page.setSize(val);
-            this.fetchData();
+            switch (this.queryType) {
+                case "C":
+                    this.fetchDataByConnection();
+                    break;
+                case "I":
+                    this.fetchDataByInterest();
+                    break;
+                default:
+                    this.fetchData();
+            }
         },
         handleCurrentChange(val) {
             this.page.setCurrent(val);
-            this.fetchData();
+            switch (this.queryType) {
+                case "C":
+                    this.fetchDataByConnection();
+                    break;
+                case "I":
+                    this.fetchDataByInterest();
+                    break;
+                default:
+                    this.fetchData();
+            }
         },
         statusChange(data) {
             const item = this.list.find(v => v.id === data.id);
@@ -214,6 +245,11 @@ export default {
         handleSelect(item) {
             this.formInline.merchantId = item.id;
             console.log(item);
+        },
+        indexMethod(index) {
+            return (
+                this.page.getSize() * (this.page.getCurrent() - 1) + index + 1
+            );
         }
     }
 };
