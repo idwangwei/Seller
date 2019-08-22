@@ -114,7 +114,7 @@ export default {
         this.form.warrantyTime = value[1];
         callback();
       }
-    }
+    };
     return {
       dialogVisible: false,
       // speedRankList:['A1'],
@@ -215,11 +215,11 @@ export default {
     }
   },
   watch: {
-    "form.brandId": function (val, oldVal) {
+    "form.brandId": function(val, oldVal) {
       const selectBrand = this.commodityBrandList.find(v => v.brandId === val);
       if (selectBrand) {
         this.specificationList = selectBrand.specificationList;
-        this.decorativeList = selectBrand.decorativeList
+        this.decorativeList = selectBrand.decorativeList;
       } else {
         this.specificationList = [];
         this.decorativeList = [];
@@ -233,8 +233,8 @@ export default {
   methods: {
     submit() {
       if (checkPermission()) {
-        showPermissionMessage()
-        return
+        showPermissionMessage();
+        return;
       }
       this.$refs.form.validate(valid => {
         if (valid) {

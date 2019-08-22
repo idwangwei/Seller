@@ -91,9 +91,9 @@
             </el-col>
           </el-row>
         </el-col>
-        
+
       </el-row>
-      <el-row  class="detail-row-item">
+      <el-row class="detail-row-item">
         <el-col :span="24">
           <el-row>
             <el-col :span="3">
@@ -139,8 +139,8 @@ export default {
     showDetil() {
       this.dialogVisible = true;
       getDetail({ merchantId: this.merchantId }).then(resp => {
-        this.itemData = resp.data
-      })
+        this.itemData = resp.data;
+      });
     }
   }
 };

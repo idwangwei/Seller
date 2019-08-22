@@ -7,7 +7,7 @@ import store from '@/store';
 import {
   getToken
 } from '@/utils/auth';
-import Vue from 'vue';
+// import Vue from 'vue';
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
@@ -84,8 +84,8 @@ service.interceptors.response.use(
   }
 );
 const errorHandle = (error) => {
-  const { response = {} } = error;
-  const { data = {} } = response;
+  const { response = {}} = error;
+  const { data = {}} = response;
   if (data.code === '21011') {
     store.dispatch('user/resetToken').then(() => {
       location.reload();

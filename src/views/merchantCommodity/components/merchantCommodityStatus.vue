@@ -69,8 +69,8 @@ export default {
   methods: {
     putAway() {
       if (checkPermission()) {
-        showPermissionMessage()
-        return
+        showPermissionMessage();
+        return;
       }
       this.visible = false;
       putAway({ commodityId: this.commodityId }).then(resp => {
@@ -80,8 +80,8 @@ export default {
     },
     soldOut() {
       if (checkPermission()) {
-        showPermissionMessage()
-        return
+        showPermissionMessage();
+        return;
       }
       this.visible = false;
       soldOut({

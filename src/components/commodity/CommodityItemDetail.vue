@@ -14,7 +14,7 @@
                 <div v-if="itemData.status === 'AUDIT_REFUSED' || itemData.status === 'MANAGER_SOLD_OUT'">
                   <el-tooltip class="item" effect="dark" :content="itemData.reason" placement="top">
                     <el-badge :value="1" class="item" type="warning">
-                      <el-button size="small">{{itemData[item.prop]}}</el-button>
+                      <el-button size="small">{{ itemData[item.prop] }}</el-button>
                     </el-badge>
                   </el-tooltip>
                 </div>
@@ -22,7 +22,7 @@
                   {{ itemData[item.prop] }}
                 </div>
               </div>
-              <div class v-else>{{ itemData[item.prop] }}</div>
+              <div v-else class>{{ itemData[item.prop] }}</div>
             </el-col>
           </el-row>
         </el-col>

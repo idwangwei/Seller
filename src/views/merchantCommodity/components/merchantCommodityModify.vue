@@ -108,8 +108,8 @@ export default {
     },
     submitForm() {
       if (checkPermission()) {
-        showPermissionMessage()
-        return
+        showPermissionMessage();
+        return;
       }
       this.loading = true;
       modify(this.form).then(resp => {
