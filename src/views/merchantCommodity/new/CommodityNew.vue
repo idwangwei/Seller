@@ -99,6 +99,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { add } from "@/api/merchantCommodity";
+import { checkPermission, showPermissionMessage } from "@/utils/auth.js";
 export default {
   name: "MerchantCommodityNew",
   props: {},
@@ -231,6 +232,10 @@ export default {
   },
   methods: {
     submit() {
+      if (checkPermission()) {
+        showPermissionMessage()
+        return
+      }
       this.$refs.form.validate(valid => {
         if (valid) {
           this.handleNew();

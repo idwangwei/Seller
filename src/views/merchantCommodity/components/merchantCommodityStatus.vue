@@ -35,6 +35,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { putAway, soldOut } from '@/api/merchantCommodity';
+import { checkPermission, showPermissionMessage } from "@/utils/auth.js";
 export default {
   name: 'MerchantCommodityStatus',
   props: {
@@ -67,6 +68,10 @@ export default {
   },
   methods: {
     putAway() {
+      if (checkPermission()) {
+        showPermissionMessage()
+        return
+      }
       this.visible = false;
       putAway({ commodityId: this.commodityId }).then(resp => {
         console.log('pass');
@@ -74,6 +79,10 @@ export default {
       });
     },
     soldOut() {
+      if (checkPermission()) {
+        showPermissionMessage()
+        return
+      }
       this.visible = false;
       soldOut({
         commodityId: this.commodityId

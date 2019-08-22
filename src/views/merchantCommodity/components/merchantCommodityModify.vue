@@ -54,7 +54,7 @@
 
 <script>
 import { getDetail, modify } from "@/api/merchantCommodity";
-
+import { checkPermission, showPermissionMessage } from "@/utils/auth.js";
 export default {
   name: "MerchantCommodityModify",
   props: {
@@ -107,6 +107,10 @@ export default {
       });
     },
     submitForm() {
+      if (checkPermission()) {
+        showPermissionMessage()
+        return
+      }
       this.loading = true;
       modify(this.form).then(resp => {
         this.dialogVisible = false;
