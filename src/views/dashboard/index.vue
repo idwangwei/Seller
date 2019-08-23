@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">名称: {{ userInfo.name }}</div>
+    <div class="dashboard-text" v-if="userInfo.name">名称: {{ userInfo.name }}</div>
     <el-alert v-if="userInfo.status==='AUDIT_REFUSED'" :title="userInfo.statusDesc" type="info" :description="userInfo.reason" show-icon>
     </el-alert>
   </div>

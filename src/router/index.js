@@ -66,6 +66,7 @@ export const constantRoutes = [
         component: Layout,
         redirect: '/merchant/table',
         name: '商家管理',
+        alwaysShow: true,
         meta: { title: '商家管理', icon: 'example' },
         children: [
             {
@@ -73,13 +74,13 @@ export const constantRoutes = [
                 name: '商家列表',
                 component: () => import('@/views/merchant/table/index'),
                 meta: { title: '商家列表', icon: 'table' }
-            },
-            {
-                path: 'other',
-                name: '商家其他',
-                component: () => import('@/views/merchant/other/index'),
-                meta: { title: '商家其他', icon: 'nested' }
             }
+            // ,{
+            //     path: 'other',
+            //     name: '商家其他',
+            //     component: () => import('@/views/merchant/other/index'),
+            //     meta: { title: '商家其他', icon: 'nested' }
+            // }
         ]
     },
     {
@@ -100,13 +101,13 @@ export const constantRoutes = [
                 name: '商品需求',
                 component: () => import('@/views/operatorCommodity/userDemand/index'),
                 meta: { title: '商品需求', icon: 'table' }
-            },
-            {
-                path: 'other',
-                name: '商品其他',
-                component: () => import('@/views/operatorCommodity/other/index'),
-                meta: { title: '商品其他', icon: 'nested' }
             }
+            // ,{
+            //     path: 'other',
+            //     name: '商品其他',
+            //     component: () => import('@/views/operatorCommodity/other/index'),
+            //     meta: { title: '商品其他', icon: 'nested' }
+            // }
         ]
     },
     {
@@ -127,13 +128,13 @@ export const constantRoutes = [
                 name: '商品创建',
                 component: () => import('@/views/merchantCommodity/new/CommodityNew'),
                 meta: { title: '商品创建', icon: 'table' }
-            },
-            {
-                path: 'other',
-                name: '其他',
-                component: () => import('@/views/merchantCommodity/other/index'),
-                meta: { title: '其他', icon: 'nested' }
             }
+            // ,{
+            //     path: 'other',
+            //     name: '其他',
+            //     component: () => import('@/views/merchantCommodity/other/index'),
+            //     meta: { title: '其他', icon: 'nested' }
+            // }
         ]
     },
     // 404 page must be placed at the end !!!

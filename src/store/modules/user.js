@@ -83,8 +83,8 @@ const actions = {
       commit('CLEAR');
       removeToken();
       resetRouter();
-      resolve();
       setRole('');
+      resolve();
     });
   },
 

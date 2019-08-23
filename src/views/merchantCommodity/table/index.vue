@@ -24,10 +24,7 @@
       <el-table-column type="index" width="50" :index="indexMethod"></el-table-column>
       <el-table-column label="首页图片" width="180" style="height:90px">
         <template slot-scope="scope">
-          <el-image style="width: 100%; height: 100%" :src="scope.row.homePicUrl" fit="contain">
-            <div slot="placeholder" class="image-slot">
-              加载中<span class="dot">...</span>
-            </div>
+          <el-image style="width: 100%; height: 100%" :src="addImgPrefix(scope.row.homePicUrl)" fit="contain">
           </el-image>
         </template>
       </el-table-column>
@@ -65,6 +62,7 @@
 <script>
 import { getList } from "@/api/merchantCommodity";
 import { Page } from "@/utils/page";
+import { addImgPrefix } from "@/utils/index";
 import CommodityItemDetail from "@/components/commodity/CommodityItemDetail";
 import MerchantCommodityStatus from "../components/merchantCommodityStatus";
 import MerchantCommodityModify from "../components/merchantCommodityModify";
@@ -78,7 +76,7 @@ export default {
     MerchantCommodityModify
   },
   filters: {
-    formatPrice: function (value) {
+    formatPrice: function(value) {
       if (!value) {
         return "";
       } else {
@@ -102,6 +100,7 @@ export default {
     this.fetchData();
   },
   methods: {
+    addImgPrefix,
     fetchData(type) {
       this.listLoading = true;
       getList({

@@ -265,9 +265,7 @@ export default {
     },
 
     handlePictureCardSuccess(file, fileList) {
-      this.form.imageUrlList.push(
-        `${process.env.VUE_APP_BASE_API}${file.data.filePath}`
-      );
+      this.form.imageUrlList.push(file.data.filePath);
       this.form.homePicUrl = this.form.imageUrlList[0];
       this.$refs.homePicUrl.blur();
     },

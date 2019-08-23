@@ -48,7 +48,7 @@
             </el-col>
             <el-col :span="21">
               <div class>
-                <el-image style="width: 100px; height: 100px" :src="itemData.homePicUrl" :preview-src-list="srcList"></el-image>
+                <el-image v-if="itemData.homePicUrl" style="width: 100px; height: 100px" :src="addImgPrefix(itemData.homePicUrl)" :preview-src-list="addImgPrefix(itemData.imageUrlList)"></el-image>
               </div>
             </el-col>
           </el-row>
@@ -62,7 +62,7 @@
 import { getDetail } from "@/api/merchantCommodity";
 import { getDetailByManager } from "@/api/operatorCommodity";
 import { mapGetters } from "vuex";
-
+import { addImgPrefix } from "@/utils/index";
 export default {
   name: "CommodityItemDetail",
   props: {
@@ -124,17 +124,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["isOperator"]),
-    srcList() {
-      if (this.itemData.imageUrlList) {
-        return [...this.itemData.imageUrlList];
-      } else {
-        return [];
-      }
-    }
+    ...mapGetters(["isOperator"])
   },
   created() { },
   methods: {
+    addImgPrefix,
     showDetil() {
       let detailPromise;
       this.dialogVisible = true;
