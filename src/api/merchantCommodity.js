@@ -23,7 +23,8 @@ export function putAway(data) {
 }
 export function add(data) {
     return request({
-        url: '/api/v1/merchant/commodity/addCommodity',
+        // url: '/api/v1/merchant/commodity/addCommodity',
+        url: '/api/v1/merchant/commodity/addSpecificationCommodity',
         method: 'post',
         data
     });

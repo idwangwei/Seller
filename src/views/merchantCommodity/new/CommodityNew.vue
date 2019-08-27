@@ -22,10 +22,13 @@
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="花纹" prop="decorativeId">
+          <!-- <el-form-item label="花纹" prop="decorativeId">
             <el-select v-model="form.decorativeId" placeholder="根据品牌选择">
               <el-option v-for="item in decorativeList" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
+          </el-form-item> -->
+           <el-form-item label="花纹" prop="decorative">
+            <el-input v-model="form.decorative"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -36,10 +39,13 @@
       </el-row>
       <el-row>
         <el-col :span="12">
-          <el-form-item label="尺码规格" prop="specificationId">
+          <!-- <el-form-item label="尺码规格" prop="specificationId">
             <el-select v-model="form.specificationId" placeholder="根据品牌选择">
               <el-option v-for="item in specificationList" :key="item.id" :label="item.specification" :value="item.id"></el-option>
             </el-select>
+          </el-form-item> -->
+           <el-form-item label="尺码规格" prop="specification">
+            <el-input v-model="form.specification"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -122,13 +128,13 @@ export default {
         brandId: "", // 品牌
         carType: "", // 适用车型
         decorativeDeep: "", // 条纹深度
-        decorativeId: "", // 条纹
+        decorative: "", // 条纹
         extraDesc: "", // 额外营销信息
         homePicUrl: "", // 首页展示图片
         imageUrlList: [], // 更多图片
         mediaUrl: "", // 视频地址
         price: "", // 价格
-        specificationId: "", // 尺码规格
+        specification: "", // 尺码规格
         speedRank: "", //
         stock: "", // 库存
         title: "", // 标题
@@ -149,8 +155,8 @@ export default {
           }
         ],
         // decorativeDeep: [{ required: true, message: "请输入条纹深度", trigger: "blur" }],
-        decorativeId: [
-          { required: true, message: "请选择花纹", trigger: "change" }
+        decorative: [
+          { required: true, message: "请填写花纹", trigger: "blur" }
         ],
         // extraDesc: [{ required: true, message: "请输入活动名称", trigger: "blur" }],
         homePicUrl: [
@@ -164,11 +170,11 @@ export default {
         price: [
           { required: true, message: "请输入价格", trigger: "blur" }
         ],
-        specificationId: [
+        specification: [
           {
             required: true,
-            message: "请选择尺码规格",
-            trigger: "change"
+            message: "请填写尺码规格",
+            trigger: "blur"
           }
         ],
         // speedRank: [{ required: true, message: "请输入速度级别", trigger: "blur" }],
@@ -215,16 +221,16 @@ export default {
     }
   },
   watch: {
-    "form.brandId": function(val, oldVal) {
-      const selectBrand = this.commodityBrandList.find(v => v.brandId === val);
-      if (selectBrand) {
-        this.specificationList = selectBrand.specificationList;
-        this.decorativeList = selectBrand.decorativeList;
-      } else {
-        this.specificationList = [];
-        this.decorativeList = [];
-      }
-    }
+    // "form.brandId": function(val, oldVal) {
+    //   const selectBrand = this.commodityBrandList.find(v => v.brandId === val);
+    //   if (selectBrand) {
+    //     this.specificationList = selectBrand.specificationList;
+    //     this.decorativeList = selectBrand.decorativeList;
+    //   } else {
+    //     this.specificationList = [];
+    //     this.decorativeList = [];
+    //   }
+    // }
   },
 
   created() {
