@@ -40,3 +40,10 @@ export function register(data) {
     data
   });
 }
+export function refreshToken(data) {
+  return request({
+    url: `/security/refresh/access_token`,
+    method: 'post',
+    data
+  });
+}

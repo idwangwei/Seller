@@ -48,6 +48,7 @@ import { Page } from "@/utils/page";
 import ListDetail from "./ListDetail";
 import ListStatus from "./ListStatus";
 import { mapGetters } from "vuex";
+import { addImgPrefix } from "@/utils/index";
 
 export default {
   name: "MerchantTabel",
@@ -74,13 +75,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["statusList"]),
+    ...mapGetters(["statusList"])
   },
   created() {
     !this.statusList || this.$store.dispatch("app/setStatusList");
     this.fetchData();
   },
   methods: {
+    addImgPrefix,
     fetchData(onset) {
       if (onset) {
         this.page.unset();

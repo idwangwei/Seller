@@ -47,7 +47,7 @@
               <div class>商品图片：</div>
             </el-col>
             <el-col :span="21">
-              <div class>
+              <div v-if="itemData.homePicUrl">
                 <el-image v-if="itemData.homePicUrl" style="width: 100px; height: 100px" :src="addImgPrefix(itemData.homePicUrl)" :preview-src-list="addImgPrefix(itemData.imageUrlList)"></el-image>
               </div>
             </el-col>

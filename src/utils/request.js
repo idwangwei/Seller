@@ -1,12 +1,7 @@
 import axios from 'axios';
-import {
-  MessageBox,
-  Message
-} from 'element-ui';
+import { MessageBox, Message } from 'element-ui';
 import store from '@/store';
-import {
-  getToken
-} from '@/utils/auth';
+import { getToken } from '@/utils/auth';
 // import Vue from 'vue';
 // create an axios instance
 const service = axios.create({
@@ -29,6 +24,7 @@ service.interceptors.request.use(
       // please modify it according to the actual situation
       config.headers['access-token'] = getToken();
     }
+    // requestQueue.push({ url: config });
     return config;
   },
   error => {
@@ -61,18 +57,21 @@ service.interceptors.response.use(
       });
 
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
-      if (res.code === '50008' || res.code === '50012' || res.code === '50014') {
-        // to re-login
-        MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
-          confirmButtonText: 'Re-Login',
-          cancelButtonText: 'Cancel',
-          type: 'warning'
-        }).then(() => {
-          store.dispatch('user/resetToken').then(() => {
-            location.reload();
-          });
-        });
-      }
+    //   if (res.code === '403') {
+    //     // to re-login
+    //     MessageBox.confirm(
+    //       '登录过期, 重新登录',
+    //       '提示',
+    //       {
+    //         confirmButtonText: '重登',
+    //         type: 'warning'
+    //       }
+    //     ).then(() => {
+    //       store.dispatch('user/refreshToken').then(() => {
+    //         location.reload();
+    //       });
+    //     });
+    //   }
       return Promise.reject(new Error(res.message || 'Error'));
     } else {
       return res;
@@ -83,11 +82,13 @@ service.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-const errorHandle = (error) => {
+// const requestQueue = [];
+// let refreshAccessTokenProcessing = false;
+const errorHandle = error => {
   const { response = {}} = error;
   const { data = {}} = response;
-  if (data.code === '21011') {
-    store.dispatch('user/resetToken').then(() => {
+  if (data.code === 403) {
+    store.dispatch('user/refreshToken').then(() => {
       location.reload();
     });
   } else {

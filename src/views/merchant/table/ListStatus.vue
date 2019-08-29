@@ -3,15 +3,24 @@
     <template v-if="mapData.key === 'WAIT_AUDIT'">
       <div>
         <el-row>
-          <el-col :span="4"><p>操作：</p></el-col>
+          <el-col :span="4">
+            <p>操作：</p>
+          </el-col>
           <el-col :span="20">
             <p>处理商户申请</p>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="4"><p>备注：</p></el-col>
+          <el-col :span="4">
+            <p>备注：</p>
+          </el-col>
           <el-col :span="20">
-            <el-input v-model="refuseReason" type="textarea" :rows="2" placeholder="请输入内容"></el-input>
+            <el-input
+              v-model="refuseReason"
+              type="textarea"
+              :rows="2"
+              placeholder="请输入内容"
+            ></el-input>
           </el-col>
         </el-row>
         <div style="text-align: right; margin: 10px 0;">
@@ -32,15 +41,24 @@
     <template v-else-if="mapData.key === 'AUDIT_PASS'">
       <div>
         <el-row>
-          <el-col :span="4"><p>操作：</p></el-col>
+          <el-col :span="4">
+            <p>操作：</p>
+          </el-col>
           <el-col :span="20">
             <p>封禁商户</p>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="4"><p>备注：</p></el-col>
+          <el-col :span="4">
+            <p>备注：</p>
+          </el-col>
           <el-col :span="20">
-            <el-input v-model="bannerReason" type="textarea" :rows="2" placeholder="请输入内容"></el-input>
+            <el-input
+              v-model="bannerReason"
+              type="textarea"
+              :rows="2"
+              placeholder="请输入内容"
+            ></el-input>
           </el-col>
         </el-row>
 
@@ -81,8 +99,8 @@ export default {
     data() {
         return {
             visible: false,
-            refuseReason: '',
-            bannerReason: ''
+            refuseReason: "",
+            bannerReason: ""
         };
     },
     computed: {
@@ -115,6 +133,12 @@ export default {
         },
         refuse() {
             this.visible = false;
+            if (!this.refuseReason.trim()) {
+                this.$alert("请填写拒绝原因", "提示", {
+                    confirmButtonText: "确定"
+                });
+                return;
+            }
             refuse({
                 merchantId: this.merchantId,
                 reason: this.refuseReason
@@ -127,6 +151,12 @@ export default {
             });
         },
         banner() {
+             if (!this.refuseReason.trim()) {
+                this.$alert("请填写封禁原因", "提示", {
+                    confirmButtonText: "确定"
+                });
+                return;
+            }
             this.visible = false;
             banner({
                 merchantId: this.merchantId,

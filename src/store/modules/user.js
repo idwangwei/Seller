@@ -1,5 +1,11 @@
-import { login, getInfo } from '@/api/user';
-import { getToken, setToken, removeToken, setRole, getRole } from '@/utils/auth';
+import { login, getInfo, refreshToken } from '@/api/user';
+import {
+  getToken,
+  setToken,
+  removeToken,
+  setRole,
+  getRole
+} from '@/utils/auth';
 import { resetRouter } from '@/router';
 
 const state = {
@@ -26,7 +32,7 @@ const mutations = {
   SET_INFO: (state, info) => {
     state.info = info;
   },
-  CLEAR: (state) => {
+  CLEAR: state => {
     state.token = '';
     state.name = '';
     state.avatar = '';
@@ -48,7 +54,8 @@ const actions = {
           setRole(role);
           setToken(data.accessToken);
           resolve();
-        }).catch(error => {
+        })
+        .catch(error => {
           reject(error);
         });
     });
@@ -71,7 +78,8 @@ const actions = {
           commit('SET_NAME', name);
           commit('SET_AVATAR', avatar);
           resolve(data);
-        }).catch(error => {
+        })
+        .catch(error => {
           reject(error);
         });
     });
@@ -94,6 +102,16 @@ const actions = {
       commit('SET_TOKEN', '');
       removeToken();
       resolve();
+    });
+  },
+
+  refreshToken({ commit }) {
+    return new Promise(resolve => {
+      refreshToken({ refreshToken: '' }).then(response => {
+        const { data } = response;
+        commit('SET_TOKEN', data.accessToken);
+        resolve();
+      });
     });
   }
 };

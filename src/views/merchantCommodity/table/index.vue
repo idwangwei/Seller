@@ -80,7 +80,8 @@ export default {
       if (!value) {
         return "";
       } else {
-        return `￥${value / 100}`;
+        // return `￥${value / 100}`;
+        return `￥${value}元`;
       }
     }
   },

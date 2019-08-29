@@ -100,8 +100,8 @@
               <div class="">营业执照：</div>
             </el-col>
             <el-col :span="21">
-              <div class="">
-                <el-image style="width: 100px; height: 100px" :src="itemData.licenseUrl" :preview-src-list="srcList"></el-image>
+              <div v-if="itemData.licenseUrl">
+                <el-image style="width: 100px; height: 100px" :src="addImgPrefix(itemData.licenseUrl)" :preview-src-list="addImgPrefix(srcList)"></el-image>
               </div>
             </el-col>
           </el-row>
@@ -114,6 +114,7 @@
 
 <script>
 import { getDetail } from '@/api/merchantTable';
+import { addImgPrefix } from "@/utils/index";
 
 export default {
   name: 'ListDetail',
@@ -136,6 +137,7 @@ export default {
   },
   created() { },
   methods: {
+    addImgPrefix,
     showDetil() {
       this.dialogVisible = true;
       getDetail({ merchantId: this.merchantId }).then(resp => {

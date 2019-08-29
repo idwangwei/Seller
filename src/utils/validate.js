@@ -28,9 +28,9 @@ const validateVerfication = (rule, value, callback) => {
   if (value === "") {
     callback(new Error("请输入图形验证码"));
   } else {
-    const regExp = new RegExp(/^\w{5}$/);
+    const regExp = new RegExp(/^\w{4}$/);
     if (!regExp.test(value)) {
-      callback(new Error("请输入5位图形验证码"));
+      callback(new Error("请输入4位图形验证码"));
     } else {
       callback();
     }
